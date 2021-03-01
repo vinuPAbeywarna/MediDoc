@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "293687726617",
+    "project_id": "medidoc-4c383",
+    "storage_bucket": "medidoc-4c383.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:293687726617:android:3f5f0b358908e4668c9088",
+        "android_client_info": {
+          "package_name": "com.vinuri.medidoc.MediDoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "293687726617-7jju50c7c5srp7e1p6htt386alc5ejru.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vinuri.medidoc.MediDoc",
+            "certificate_hash": "3e12ce0425d0afc752a532abd7f83c61f74452d6"
+          }
+        },
+        {
+          "client_id": "293687726617-rnp9su736opuihkqg93fj338i5d8uqdc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzwoRjSwmZXMOGNjI-Sui2W3Pd_Iap_tM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "293687726617-rnp9su736opuihkqg93fj338i5d8uqdc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
