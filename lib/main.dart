@@ -1,23 +1,36 @@
 import 'package:MediDoc/Auth/SingleSignIn.dart';
+import 'package:MediDoc/UI/Home.dart';
+import 'package:MediDoc/UI/HomeHome.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-void main() async{
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(MediDoc());
 }
 
-class MyApp extends StatelessWidget {
+class MediDoc extends StatelessWidget {
+  final FirebaseAuth fAuth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Medi Doc',
+      title: 'MediDoc',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+          primary: Colors.blue.shade900,
+        )),
+        iconTheme: IconThemeData(color: Colors.blue.shade900),
+        primaryColor: Colors.blue.shade900,
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SingleSignIn(),
+      home: fAuth.currentUser != null ? Home() : SingleSignIn(),
     );
   }
 }

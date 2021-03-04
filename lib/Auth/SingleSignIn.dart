@@ -1,4 +1,10 @@
+import 'dart:io';
+
+import 'package:MediDoc/UI/Home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SingleSignIn extends StatefulWidget {
   @override
@@ -6,17 +12,53 @@ class SingleSignIn extends StatefulWidget {
 }
 
 class _SingleSignInState extends State<SingleSignIn> {
+  void signInWithGoogle() async {
+    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
+      Get.offAll(() => Home());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                child: Text('SignIn'),
-                onPressed: () {})
+            Container(
+              child: Image.asset('assets/images/logo.png'),
+            ),
+            Text(
+              'MediDoc',
+              style: TextStyle(
+                fontFamily: 'Segoe UI',
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue.shade900,
+              ),
+            ),
+            Text(
+              'SignIn to Continue',
+              style: TextStyle(
+                fontFamily: 'Segoe UI',
+                color: Colors.black,
+              ),
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  signInWithGoogle();
+                },
+                child: Text(
+                  'SignIn',
+                )),
           ],
         ),
       ),
