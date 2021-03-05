@@ -1,5 +1,5 @@
 import 'package:MediDoc/Auth/SingleSignIn.dart';
-import 'package:MediDoc/UI/HomeHome.dart';
+
 import 'package:MediDoc/UI/Profile.dart';
 import 'package:MediDoc/UI/QR.dart';
 import 'package:cached_network_image/cached_network_image.dart';
