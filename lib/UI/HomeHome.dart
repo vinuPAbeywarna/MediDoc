@@ -16,7 +16,6 @@ class _HomeHomeState extends State<HomeHome> {
   }
 }
 
-
 @override
 Widget buildImage(BuildContext context) {
   return Scaffold(
@@ -32,7 +31,6 @@ Widget buildImage(BuildContext context) {
     ),
   );
 }
-
 
 @override
 Widget buildI(BuildContext context) {

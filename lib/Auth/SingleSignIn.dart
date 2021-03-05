@@ -34,7 +34,7 @@ class _SingleSignInState extends State<SingleSignIn> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              child: Image.asset('assets/images/logo.png'),
+              child: Image.asset('assets/images/stethoscope.png'),
             ),
             Text(
               'MediDoc',

@@ -16,7 +16,7 @@ class _ProfileState extends State<Profile> {
         child: Column(
           children: [
             CachedNetworkImage(imageUrl: fAuth.currentUser.photoURL),
-            ],
+          ],
         ),
       ),
     );

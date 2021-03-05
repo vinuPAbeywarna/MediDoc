@@ -8,9 +8,8 @@ class splashscreen extends StatefulWidget {
 class _splashscreenState extends State<splashscreen> {
   @override
   Widget build(BuildContext context) {
-    
-    return Container(
-      
-    );
+    return Container();
   }
 }
+
+// Group: Group 15

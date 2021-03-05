@@ -1,6 +1,5 @@
 import 'package:MediDoc/Auth/SingleSignIn.dart';
 import 'package:MediDoc/UI/Home.dart';
-import 'package:MediDoc/UI/HomeHome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +20,11 @@ class MediDoc extends StatelessWidget {
       title: 'MediDoc',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        appBarTheme: AppBarTheme(
+            color: Colors.transparent,
+            elevation: 0,
+            brightness: Brightness.dark,
+            iconTheme: IconThemeData(color: Colors.white)),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
           primary: Colors.blue.shade900,

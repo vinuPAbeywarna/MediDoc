@@ -17,6 +17,8 @@ dependencies:
   google_sign_in: ^4.5.1
   adobe_xd: ^1.1.0+1
   cached_network_image: ^2.5.0
+  material_floating_search_bar: ^0.2.6
+
 
 dev_dependencies:
   flutter_test:
@@ -27,4 +29,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/logo.png
+    - assets/images/stethoscope.png
+    - assets/images/image 1.png
+    - assets/images/image 3.png
+    - assets/images/image 4.png
+    - assets/images/image 5.png
