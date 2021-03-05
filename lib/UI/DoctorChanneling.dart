@@ -13,7 +13,6 @@ class _DoctorChannelingState extends State<DoctorChanneling> {
         title: Text('Doctor Channelings'),
         backgroundColor: Colors.blue.shade900,
       ),
-      
     );
   }
 }
