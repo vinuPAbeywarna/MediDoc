@@ -21,7 +21,8 @@ class _AccountSettingState extends State<AccountSetting> {
           },
           child: ListView(
             children: [
-              Text("Edit Profile"),
+              Text("Edit Profile", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),),
+              
               SizedBox(
                 height: 15,
               ),
@@ -33,8 +34,8 @@ class _AccountSettingState extends State<AccountSetting> {
                       height: 130,
                       decoration: BoxDecoration(
                           border: Border.all(
-                            width: 4,
-                            color: Colors.black,
+                            width: 2,
+                            color: Colors.blue.shade900,
                           ),
                           //boxShadow: (
 
@@ -52,10 +53,13 @@ class _AccountSettingState extends State<AccountSetting> {
                           width: 40,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
+                            border: Border.all(width: 1,color: Theme.of(context).scaffoldBackgroundColor,),
                             color: Colors.blue.shade900,
                           ),
                           child: Icon(
-                            Icons.edit,
+                            Icons.camera_alt_rounded,
+                            color: Colors.white,
+                            
                           ),
                         )),
                   ],
@@ -65,6 +69,47 @@ class _AccountSettingState extends State<AccountSetting> {
                 height: 35,
               ),
               buildTestField("Full Name", "Nextvnext"),
+              buildTestField("Email", "Nextvnext66@gmail.com"),
+              buildTestField("Address", "No.2,Colomobo Road,Colombo."),
+              buildTestField("Telephone", "0772323333"),
+              SizedBox(
+                height: 28,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  RaisedButton(
+                    padding: EdgeInsets.symmetric(horizontal: 50),
+                    //padding: const EdgeInsets.all(10.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius:BorderRadius.circular(20) ),
+                    onPressed: ()
+                    {},
+                    color: Colors.blue.shade900,
+                    child: Text("SAVE",
+                    style: TextStyle(
+                      fontSize: 14,
+                      letterSpacing: 2.2,
+                      color: Colors.white)),
+                    ),
+
+                    RaisedButton(
+                    padding: EdgeInsets.symmetric(horizontal: 50),
+                    //padding: const EdgeInsets.all(10.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius:BorderRadius.circular(20) ),
+                    onPressed: ()
+                    {},
+                    color: Colors.red.shade900,
+                    child: Text("CANCEL",
+                    style: TextStyle(
+                      fontSize: 14,
+                      letterSpacing: 2.2,
+                      color: Colors.white)),
+                    ),
+                    
+                ],
+              )
             ],
           ),
         ),
@@ -72,16 +117,23 @@ class _AccountSettingState extends State<AccountSetting> {
     );
   }
 
-  TextField buildTestField(String labelText, String placeholder) {
-    return TextField(
-        decoration: InputDecoration(
-      contentPadding: EdgeInsets.only(bottom: 3),
-      labelText: "Full name",
-      floatingLabelBehavior: FloatingLabelBehavior.always,
-      hintText: placeholder,
-      //hintText:  TextStyle(
-      //frontSize: 16,
-      //color: Colors.black,
-    ));
+  Widget buildTestField(String labelText, String placeholder) {
+    return Padding(
+      //padding: const EdgeInsets.only(bottom :15.0),
+      padding: const EdgeInsets.all(10.0),
+      child: TextField(
+          decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(bottom: 4),
+        
+        labelText: labelText,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        hintText: placeholder,
+        hintStyle:  TextStyle(
+        fontSize: 16,
+        color: Colors.black,
+      )
+      ),
+      ),
+    );
   }
 }
