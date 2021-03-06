@@ -21,6 +21,7 @@ class _UserDetailsState extends State<UserDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue.shade50,
        appBar: SearchAppBar(
         primary: Theme.of(context).primaryColor,
         appBarController: appBarController,

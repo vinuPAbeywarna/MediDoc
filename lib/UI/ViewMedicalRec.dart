@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:MediDoc/UI/MedicalRecodes.dart';
+//import 'package:MediDoc/UI/MedicalRecodes.dart';
 
 class ViewMedicalRec extends StatefulWidget {
   final DocumentSnapshot medicalrecodes;

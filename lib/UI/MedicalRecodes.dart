@@ -30,6 +30,7 @@ class _MedicalRecodesState extends State<MedicalRecodes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue.shade50,
       appBar: SearchAppBar(
         primary: Theme.of(context).primaryColor,
         appBarController: appBarController,

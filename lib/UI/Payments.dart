@@ -9,6 +9,7 @@ class _PaymentsState extends State<Payments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue.shade50,
       appBar: AppBar(
         title: Text('Payments'),
          backgroundColor: Colors.blue.shade900,

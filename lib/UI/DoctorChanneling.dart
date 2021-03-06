@@ -14,6 +14,7 @@ class _DoctorChannelingState extends State<DoctorChanneling> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.lightBlue.shade50,
       appBar: AppBar(
         title: Text('Appointments'),
         backgroundColor: Colors.blue.shade900,
