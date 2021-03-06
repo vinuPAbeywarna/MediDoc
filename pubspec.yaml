@@ -18,7 +18,7 @@ dependencies:
   google_sign_in: ^4.5.1
   adobe_xd: ^1.1.0+1
   cached_network_image: ^2.5.0
-  material_floating_search_bar: ^0.2.6
+  simple_search_bar: ^0.1.7
 
 
 dev_dependencies:
