@@ -26,7 +26,7 @@ class _MyAppoinmentsState extends State<MyAppoinments> {
               ],
             ),
             title: Text('My Appointments'),
-            backgroundColor: Colors.lightBlue.shade700,
+            backgroundColor: Colors.blue.shade900,
           ),
           //backgroundColor: Colors.lightBlue.shade800,
           body: TabBarView(

@@ -15,7 +15,7 @@ class _DoctorChannelingState extends State<DoctorChanneling> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Doctor Channelings'),
+        title: Text('Appointments'),
         backgroundColor: Colors.blue.shade900,
       ),
       body: StreamBuilder(
@@ -39,6 +39,10 @@ class _DoctorChannelingState extends State<DoctorChanneling> {
                       subtitle: Text(data.data.docs[index]['Type'] +
                           ' | ' +
                           data.data.docs[index]['Hospital']),
+                          
+
+                   // trailing: Icon(Icons.delete_forever_rounded,color: Colors.blue.shade900,),
+
                     ),
                   );
                 });

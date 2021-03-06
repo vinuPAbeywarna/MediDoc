@@ -11,7 +11,7 @@ class _UserDetailsState extends State<UserDetails> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Users'),
-        backgroundColor: Colors.lightBlue.shade800,
+        backgroundColor: Colors.blue.shade900,
       ),
     );
   }

@@ -12,6 +12,7 @@ import 'package:MediDoc/UI/DoctorChanneling.dart';
 import 'package:MediDoc/UI/MedicalRecodes.dart';
 import 'package:MediDoc/UI/Payments.dart';
 import 'package:MediDoc/UI/UserDetails.dart';
+import 'package:MediDoc/UI/AccountSettings.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 
 class Home extends StatefulWidget {
@@ -115,7 +116,7 @@ class _HomeState extends State<Home> {
                   ),
                   ListTile(
                     onTap: () {
-                      Get.to(() => UserDetails());
+                      Get.to(() => AccountSetting());
                     },
                     title: Text('Account Settings'),
                     leading: Icon(
@@ -216,7 +217,9 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            QRScan()
+            QRScan(
+              
+            )
           ],
         ));
   }
