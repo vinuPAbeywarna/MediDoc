@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:simple_search_bar/simple_search_bar.dart';
 
-
 class MedicalRecodes extends StatefulWidget {
   @override
   _MedicalRecodesState createState() => _MedicalRecodesState();
@@ -20,12 +19,11 @@ class MedicalRecodes extends StatefulWidget {
         actions: [searchBar.getSearchAction(context)]);
   }*/
 
-
 class _MedicalRecodesState extends State<MedicalRecodes> {
   FirebaseFirestore fStore = FirebaseFirestore.instance;
 
   //@override
- final AppBarController appBarController = AppBarController();
+  final AppBarController appBarController = AppBarController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +58,6 @@ class _MedicalRecodesState extends State<MedicalRecodes> {
           ],
         ),
       ),
-      
-    
       body: StreamBuilder(
           stream: fStore.collection('MedicalRecodes').get().asStream(),
           builder: (context, data) {
@@ -76,25 +72,20 @@ class _MedicalRecodesState extends State<MedicalRecodes> {
                       onTap: () {
                         Get.to(() => ViewMedicalRec(
                               medicalrecodes: data.data.docs[index],
-                               ));
-
+                            ));
                       },
-
-                            title: Text(data.data.docs[index]['Name']),
-                            subtitle: Text(data.data.docs[index]['Email'] +
+                      title: Text(data.data.docs[index]['Name']),
+                      subtitle: Text(data.data.docs[index]['Email'] +
                           ' | ' +
                           data.data.docs[index]['Date']),
-                          
-
-                    trailing: Icon(Icons.delete_forever_rounded,color: Colors.blue.shade900,),
-                    
-
+                      trailing: Icon(
+                        Icons.delete_forever_rounded,
+                        color: Colors.blue.shade900,
+                      ),
                     ),
                   );
                 });
           }),
-          
-          
     );
   }
 }

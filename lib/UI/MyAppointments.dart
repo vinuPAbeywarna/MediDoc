@@ -1,5 +1,8 @@
 
+
+import 'package:MediDoc/UI/DoctorChanneling.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 //import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 
@@ -17,6 +20,14 @@ class _MyAppoinmentsState extends State<MyAppoinments> {
         child: Scaffold(
           backgroundColor: Colors.lightBlue.shade50,
           appBar: AppBar(
+            actions: [
+              FlatButton(
+                  onPressed: (){
+                    Get.to(()=>DoctorChanneling());
+                  },
+                  child: Text('+ New Appointment',style: TextStyle(color: Colors.white),)
+              )
+            ],
             elevation: 15,
             bottom: TabBar(
               indicator: UnderlineTabIndicator(
@@ -31,14 +42,12 @@ class _MyAppoinmentsState extends State<MyAppoinments> {
             title: Text('My Appointments'),
             backgroundColor: Colors.blue.shade900,
           ),
-          //backgroundColor: Colors.lightBlue.shade800,
           body: TabBarView(
             children: [
               //Icon(Icons.calendar_today),
               //Icon(Icons.approval),
 		        buildPage('Upcoming'),
 		        buildPage('Past'),
-
             ],
           ),
         ),

@@ -23,6 +23,8 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   FirebaseAuth fAuth = FirebaseAuth.instance;
 
+  String pageName = 'Home';
+
   int page = 1;
   PageController pageController = new PageController(initialPage: 1);
   @override
@@ -30,7 +32,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
         backgroundColor: Colors.lightBlue.shade50,
         appBar: AppBar(
-          title: Text('Dashboard'),
+          title: Text(pageName),
           backgroundColor: Colors.blue.shade900,
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -145,11 +147,18 @@ class _HomeState extends State<Home> {
           onPageChanged: (val) {
             setState(() {
               page = val;
+              if (val == 0) {
+                pageName = 'Profile';
+              } else if (val == 1) {
+                pageName = 'Home';
+              } else {
+                pageName = 'QR';
+              }
             });
           },
           controller: pageController,
           children: [
-            Profile(),
+            AccountSetting(),
             GridView.count(
               mainAxisSpacing: 10,
               crossAxisSpacing: 10,
@@ -162,7 +171,7 @@ class _HomeState extends State<Home> {
                     primary: Colors.white,
                   ),
                   onPressed: () {
-                    Get.to(() => DoctorChanneling());
+                    Get.to(() => MyAppoinments());
                   },
                   child: Column(
                     children: <Widget>[
@@ -217,13 +226,8 @@ class _HomeState extends State<Home> {
                 ),
               ],
             ),
-            QRScan(
-              
-              
-            )
+            QRScan()
           ],
         ));
   }
 }
-
-// Group: Header

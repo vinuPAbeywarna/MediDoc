@@ -40,10 +40,8 @@ class _DoctorChannelingState extends State<DoctorChanneling> {
                       subtitle: Text(data.data.docs[index]['Type'] +
                           ' | ' +
                           data.data.docs[index]['Hospital']),
-                          
 
-                   // trailing: Icon(Icons.delete_forever_rounded,color: Colors.blue.shade900,),
-
+                      // trailing: Icon(Icons.delete_forever_rounded,color: Colors.blue.shade900,),
                     ),
                   );
                 });

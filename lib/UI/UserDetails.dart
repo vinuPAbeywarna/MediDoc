@@ -10,19 +10,16 @@ class UserDetails extends StatefulWidget {
   _UserDetailsState createState() => _UserDetailsState();
 }
 
-
-
 class _UserDetailsState extends State<UserDetails> {
   FirebaseFirestore fStore = FirebaseFirestore.instance;
 
   final AppBarController appBarController = AppBarController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlue.shade50,
-       appBar: SearchAppBar(
+      appBar: SearchAppBar(
         primary: Theme.of(context).primaryColor,
         appBarController: appBarController,
         // You could load the bar with search already active
@@ -33,7 +30,7 @@ class _UserDetailsState extends State<UserDetails> {
           //Your function to filter list. It should interact with
           //the Stream that generate the final list
         },
-       
+
         mainAppBar: AppBar(
           title: Text("Users"),
           backgroundColor: Colors.blue.shade900,
@@ -51,10 +48,9 @@ class _UserDetailsState extends State<UserDetails> {
           ],
         ),
       ),
-      
-
       body: StreamBuilder(
-          stream: fStore.collection('User').get().asStream(),
+          stream:
+              FirebaseFirestore.instance.collection('User').get().asStream(),
           builder: (context, data) {
             return ListView.builder(
                 itemCount: data.connectionState == ConnectionState.done
@@ -69,13 +65,12 @@ class _UserDetailsState extends State<UserDetails> {
                               user: data.data.docs[index],
                             ));
                       },
+
                       leading: CircleAvatar(),
                       title: Text(data.data.docs[index]['Name']),
-                      subtitle: Text(data.data.docs[index]['Email'] ),
-                          
+                      subtitle: Text(data.data.docs[index]['Email']),
 
-                   // trailing: Icon(Icons.delete_forever_rounded,color: Colors.blue.shade900,),
-
+                      // trailing: Icon(Icons.delete_forever_rounded,color: Colors.blue.shade900,),
                     ),
                   );
                 });
