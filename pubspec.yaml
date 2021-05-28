@@ -1,7 +1,7 @@
-name: MediDoc
+name: medidoc
 description: medidoc project
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: 'none' #
 version: 1.0.0+1
 
 environment:
@@ -10,18 +10,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.0
-  get: ^3.25.6
-  firebase_core: ^0.7.0
-  firebase_auth: ^0.20.1
-  cloud_firestore: ^0.16.0+1
-  google_sign_in: ^4.5.1
-  adobe_xd: ^1.1.0+1
-  cached_network_image: ^2.5.0
+  cupertino_icons: ^1.0.3
+  get: ^4.1.4
+  firebase_core: ^1.2.0
+  firebase_auth: ^1.2.0
+  cloud_firestore: ^2.2.0
+  google_sign_in: ^5.0.4
+  adobe_xd: ^2.0.0+1
+  cached_network_image: ^3.0.0
   simple_search_bar: ^0.1.7
-  payhere_mobilesdk_flutter: ^1.0.1
-  qrscan: ^0.2.22
-  qr_flutter: ^3.2.0
+  payhere_mobilesdk_flutter: ^1.0.2
+  qrscan: ^0.3.1
+  qr_flutter: ^4.0.0
 
 
 dev_dependencies:
@@ -38,4 +38,3 @@ flutter:
     - assets/images/image 3.png
     - assets/images/image 4.png
     - assets/images/image 5.png
-    
