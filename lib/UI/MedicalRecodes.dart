@@ -1,30 +1,95 @@
+import 'package:MediDoc/Classes/CommonData.dart';
 import 'package:MediDoc/UI/ViewMedicalRec.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:simple_search_bar/simple_search_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MedicalRecodes extends StatefulWidget {
   @override
   _MedicalRecodesState createState() => _MedicalRecodesState();
 }
 
-/*class _MedicalRecodesState extends State<MedicalRecodes> {
-  SearchBar searchBar;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  AppBar buildAppBar(BuildContext context) {
-    return new AppBar(
-        title: new Text('Search Bar Demo'),
-        actions: [searchBar.getSearchAction(context)]);
-  }*/
-
 class _MedicalRecodesState extends State<MedicalRecodes> {
   FirebaseFirestore fStore = FirebaseFirestore.instance;
+  FirebaseAuth fAuth = FirebaseAuth.instance;
 
-  //@override
   final AppBarController appBarController = AppBarController();
 
+  List<String> users = [];
+  String selectedUser;
+
+  TextEditingController mrec = TextEditingController();
+
+  void getUsers() async{
+
+    await fStore.collection('User').get().then((value){
+      value.docs.forEach((element) {
+        users.add(element.id);
+      });
+    });
+  }
+
+  void showInsertDialog(){
+    Get.defaultDialog(
+      title: 'New Medical Record',
+      radius: 4,
+      content: Column(
+        children: [
+          DropdownButton(
+            hint: Text('Please Select a User'), // Not necessary for Option 1
+            value: selectedUser,
+            onChanged: (newValue) {
+              setState(() {
+                selectedUser = newValue;
+              });
+            },
+            items: users.map((user) {
+              return DropdownMenuItem(
+                child: new Text(user),
+                value: user,
+              );
+            }).toList(),
+          ),
+          TextField(
+            minLines: 6,
+            maxLines: 6,
+            controller: mrec,
+            decoration: InputDecoration(
+              labelText: 'Medical Info',
+              border: OutlineInputBorder()
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(onPressed: (){Get.back();}, child: Text('Cancel')),
+        ElevatedButton(onPressed: (){
+          fStore.collection('User')
+              .doc(selectedUser)
+              .collection('MedicalRecords')
+              .add({
+            'Nurse': fAuth.currentUser.displayName,
+            'NurseEmail': fAuth.currentUser.email,
+            'Record': mrec.text,
+            'Date': DateTime.now().toLocal(),
+            'Patient': selectedUser,
+          }).then((value){
+            Get.back();
+            Get.snackbar('Success', 'Record Added', backgroundColor: Colors.white);
+          });
+        }, child: Text('Add'))
+      ]
+    );
+  }
+
+  @override
+  void initState() {
+    getUsers();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,21 +110,21 @@ class _MedicalRecodesState extends State<MedicalRecodes> {
           title: Text("Medical Recodes"),
           backgroundColor: Colors.blue.shade900,
           actions: <Widget>[
-            InkWell(
-              child: Icon(
-                Icons.search,
-              ),
-              onTap: () {
-                //This is where You change to SEARCH MODE. To hide, just
-                //add FALSE as value on the stream
-                appBarController.stream.add(true);
-              },
-            ),
+            Visibility(
+                visible:  userData['isNurse'],
+                child: TextButton(onPressed: (){
+                  showInsertDialog();
+                }, child: Text('+ Add',style: TextStyle(color: Colors.white))))
           ],
         ),
       ),
       body: StreamBuilder(
-          stream: fStore.collection('MedicalRecodes').get().asStream(),
+          stream: fStore
+              .collection('User')
+              .doc(fAuth.currentUser.email)
+              .collection('MedicalRecords')
+              .get()
+          .asStream(),
           builder: (context, data) {
             return ListView.builder(
                 itemCount: data.connectionState == ConnectionState.done
@@ -70,18 +135,12 @@ class _MedicalRecodesState extends State<MedicalRecodes> {
                     elevation: 4,
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => ViewMedicalRec(
-                              medicalrecodes: data.data.docs[index],
-                            ));
                       },
-                      title: Text(data.data.docs[index]['Name']),
-                      subtitle: Text(data.data.docs[index]['Email'] +
+                      title: Text(data.data.docs[index]['Record']),
+                      subtitle: Text(data.data.docs[index]['Nurse'] +
                           ' | ' +
-                          data.data.docs[index]['Date']),
-                      trailing: Icon(
-                        Icons.delete_forever_rounded,
-                        color: Colors.blue.shade900,
-                      ),
+                          data.data.docs[index]['Date'].toDate().toString()),
+
                     ),
                   );
                 });

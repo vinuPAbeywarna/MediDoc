@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +17,7 @@ class _DoctorBookingState extends State<DoctorBooking> {
 
   List<String> timeList = ['9:00 AM','12:00 PM','6:00 PM','9:00 PM'];
   List<String> dayList = ['Monday','Wednesday','Friday','Saturday'];
+  List<String> weekdays = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
 
   String selectedTime = "9:00 AM";
   String selectedDay = "Monday";
@@ -33,16 +33,28 @@ class _DoctorBookingState extends State<DoctorBooking> {
   );
 
   void addAppointment(){
+
+
+
     FirebaseFirestore.instance.collection('User')
         .doc(fAuth.currentUser.email)
         .collection('Appointments')
         .add({
+      'PaymentID':'UNPAID',
+      'PaymentDate': '',
+      'Status':'UNCHECKED',
+      'Name': fAuth.currentUser.displayName,
+      'Email': fAuth.currentUser.email,
       'DocID':widget.doctor.id,
       'Time':selectedTime,
-      'Day': selectedDay,
+      'Day': weekdays.indexOf(selectedDay),
       'Charge': widget.doctor['Charge']
     }).then((value){
-      Get.snackbar('Confirmed', 'Mn Pkyya');
+      Get.snackbar(
+          'Confirmed',
+          'Booking Confirmed!',
+          backgroundColor: Colors.white
+      );
     });
   }
 

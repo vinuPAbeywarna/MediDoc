@@ -2,18 +2,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
-//import 'package:MediDoc/UI/Userdetails.dart';
+import 'package:MediDoc/UI/UserDetails.dart';
 
-class UserDetailsview extends StatefulWidget {
+class UserDetailsView extends StatefulWidget {
   final DocumentSnapshot user;
 
-  const UserDetailsview({Key key, this.user}) : super(key: key);
+  const UserDetailsView({Key key, this.user}) : super(key: key);
   @override
   _UserDetailsViewState createState() => _UserDetailsViewState();
 }
 
-class _UserDetailsViewState extends State<UserDetailsview> {
+class _UserDetailsViewState extends State<UserDetailsView> {
   FirebaseAuth fAuth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {

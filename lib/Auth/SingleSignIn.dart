@@ -1,6 +1,8 @@
 
 
+import 'package:MediDoc/Classes/CommonData.dart';
 import 'package:MediDoc/UI/Home.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +22,13 @@ class _SingleSignInState extends State<SingleSignIn> {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
-    await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
+    await FirebaseAuth.instance.signInWithCredential(credential).then((value) async {
+
+
+      
+
+        userData = await FirebaseFirestore.instance.collection('User').doc(FirebaseAuth.instance.currentUser.email).get();
+
       Get.offAll(() => Home());
     });
   }

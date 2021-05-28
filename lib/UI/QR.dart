@@ -1,6 +1,8 @@
-import 'dart:typed_data';
 
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 class QRScan extends StatefulWidget {
   @override
@@ -9,38 +11,45 @@ class QRScan extends StatefulWidget {
 
 class _QRScanState extends State<QRScan> {
 
-  String cameraScanResult = 'Get Result';
+  String cameraScanResult;
+  DocumentSnapshot appointment;
 
-  Uint8List result;
+  void getDoc(data) async{
+    String docID = data.split('|')[0];
+    String email = data.split('|')[1];
 
-  void makeQR(data) async{
-    result = await scanner.generateBarCode(data);
-    setState(() {
+    print(docID);
+    print(email);
+
+    FirebaseFirestore.instance
+        .collection('User')
+        .doc(email)
+        .collection('Appointments')
+        .doc(docID).update({
+      'Status':'CHECKED'
+    }).then((value){
+      Get.snackbar('Success', 'Marked as Checked In', backgroundColor: Colors.white);
     });
+    
   }
 
 
   void scanQR() async{
      cameraScanResult = await scanner.scan();
-     makeQR(cameraScanResult);
+     getDoc(cameraScanResult.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          children: [
-            ElevatedButton(
-              onPressed: (){
-                scanQR();
-              },
-              child: Text(cameraScanResult),
-            ),
-            result == null ? Container() : Image.memory(result),
-          ],
-        ),
-      ),
+        child: ElevatedButton(
+          onPressed: (){
+            scanQR();
+          },
+          child: Text('Scan'),
+        )
+      )
     );
   }
 }

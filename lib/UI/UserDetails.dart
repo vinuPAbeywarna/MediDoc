@@ -61,9 +61,7 @@ class _UserDetailsState extends State<UserDetails> {
                     elevation: 4,
                     child: ListTile(
                       onTap: () {
-                        Get.to(() => UserDetailsview(
-                              user: data.data.docs[index],
-                            ));
+
                       },
 
                       leading: CircleAvatar(),
