@@ -1,4 +1,5 @@
-import 'package:MediDoc/UI/UserDetailsView.dart';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
@@ -64,7 +65,11 @@ class _UserDetailsState extends State<UserDetails> {
 
                       },
 
-                      leading: CircleAvatar(),
+                      leading: ClipOval(
+                        child: CachedNetworkImage(
+                          imageUrl: data.data.docs[index]['Photo'],
+                        ),
+                      ),
                       title: Text(data.data.docs[index]['Name']),
                       subtitle: Text(data.data.docs[index]['Email']),
 

@@ -1,18 +1,19 @@
-import 'package:MediDoc/Auth/SingleSignIn.dart';
+import 'package:medidoc/Auth/SingleSignIn.dart';
+import 'package:medidoc/Classes/CommonData.dart';
 
-import 'package:MediDoc/UI/Profile.dart';
-import 'package:MediDoc/UI/QR.dart';
+
+import 'package:medidoc/UI/QR.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:MediDoc/UI/MyAppointments.dart';
-import 'package:MediDoc/UI/DoctorChanneling.dart';
-import 'package:MediDoc/UI/MedicalRecodes.dart';
-import 'package:MediDoc/UI/Payments.dart';
-import 'package:MediDoc/UI/UserDetails.dart';
-import 'package:MediDoc/UI/AccountSettings.dart';
+import 'package:medidoc/UI/MyAppointments.dart';
+import 'package:medidoc/UI/DoctorChanneling.dart';
+import 'package:medidoc/UI/MedicalRecodes.dart';
+import 'package:medidoc/UI/Payments.dart';
+import 'package:medidoc/UI/UserDetails.dart';
+import 'package:medidoc/UI/AccountSettings.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 
 class Home extends StatefulWidget {
@@ -80,7 +81,7 @@ class _HomeState extends State<Home> {
                               style: TextStyle(
                                   fontSize: 21, color: Colors.blue.shade900),
                             ),
-                            Text('USER TYPE')
+                            Text(userData['Type'])
                           ],
                         )
                       ],
@@ -210,20 +211,23 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                 ),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
+                Visibility(
+                  visible: userData['Type'] =='Nurse',
+                  child:ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                    ),
+                    onPressed: () {
+                      Get.to(() => UserDetails());
+                    },
+                    child: Column(
+                      children: <Widget>[
+                        Image.asset('assets/images/image 5.png',
+                            width: 270, height: 165),
+                      ],
+                    ),
                   ),
-                  onPressed: () {
-                    Get.to(() => UserDetails());
-                  },
-                  child: Column(
-                    children: <Widget>[
-                      Image.asset('assets/images/image 5.png',
-                          width: 270, height: 165),
-                    ],
-                  ),
-                ),
+                )
               ],
             ),
             QRScan()

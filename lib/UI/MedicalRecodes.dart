@@ -1,5 +1,5 @@
-import 'package:MediDoc/Classes/CommonData.dart';
-import 'package:MediDoc/UI/ViewMedicalRec.dart';
+import 'package:medidoc/Classes/CommonData.dart';
+import 'package:medidoc/UI/ViewMedicalRec.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -111,7 +111,7 @@ class _MedicalRecodesState extends State<MedicalRecodes> {
           backgroundColor: Colors.blue.shade900,
           actions: <Widget>[
             Visibility(
-                visible:  userData['isNurse'],
+                visible:  userData['Type']=='Nurse',
                 child: TextButton(onPressed: (){
                   showInsertDialog();
                 }, child: Text('+ Add',style: TextStyle(color: Colors.white))))
