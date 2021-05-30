@@ -16,6 +16,8 @@ class _MyAppoinmentsState extends State<MyAppoinments> {
   QuerySnapshot doctors;
   DateTime dtNow = DateTime.now();
 
+  bool ready = false;
+
   List<String> weekdays = [
     'Monday',
     'Tuesday',
@@ -44,6 +46,7 @@ class _MyAppoinmentsState extends State<MyAppoinments> {
         .get();
     setState(() {
       print(appointments.docs.length);
+      ready = true;
     });
   }
 
@@ -51,6 +54,7 @@ class _MyAppoinmentsState extends State<MyAppoinments> {
     doctors = await FirebaseFirestore.instance.collection('Doctors').get();
     setState(() {
       print(doctors.docs.length);
+      ready = true;
     });
   }
 
@@ -70,7 +74,7 @@ class _MyAppoinmentsState extends State<MyAppoinments> {
           backgroundColor: Colors.lightBlue.shade50,
           appBar: AppBar(
             actions: [
-              FlatButton(
+              TextButton(
                   onPressed: () {
                     Get.to(() => DoctorChanneling());
                   },
@@ -93,7 +97,7 @@ class _MyAppoinmentsState extends State<MyAppoinments> {
             title: Text('My Appointments'),
             backgroundColor: Colors.blue.shade900,
           ),
-          body: TabBarView(
+          body: ready ? TabBarView(
             children: [
               ListView.builder(
                 itemCount: appointments == null ? 0 : appointments.docs.length,
@@ -134,13 +138,15 @@ class _MyAppoinmentsState extends State<MyAppoinments> {
                   return ListTile(
                     title: Text(weekdays[appointmentsPast.docs[index]['Day']]
                         .toString()),
-                    subtitle: Text(appointments.docs[index]['Time']),
+                    subtitle: Text(appointmentsPast.docs[index]['Time']),
                     trailing: Text(
-                        'LKR ' + appointments.docs[index]['Charge'].toString()),
+                        'LKR ' + appointmentsPast.docs[index]['Charge'].toString()),
                   );
                 },
               ),
             ],
+          ) : Center(
+            child: CircularProgressIndicator(),
           ),
         ),
       );

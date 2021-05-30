@@ -13,49 +13,90 @@ class SingleSignIn extends StatefulWidget {
 
 class _SingleSignInState extends State<SingleSignIn> {
   void signInWithGoogle() async {
-    final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-    final GoogleAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-    await FirebaseAuth.instance
-        .signInWithCredential(credential)
-        .then((value) async {
-      await FirebaseFirestore.instance
-          .collection('User')
-          .doc(FirebaseAuth.instance.currentUser.email)
-          .get()
-          .then((DocumentSnapshot documentSnapshot) async {
-        if (documentSnapshot.exists){
-          userData = await FirebaseFirestore.instance
-              .collection('User')
-              .doc(FirebaseAuth.instance.currentUser.email)
-              .get();
-          Get.offAll(() => Home());
-        } else {
-          await FirebaseFirestore.instance
-              .collection('User')
-              .doc(FirebaseAuth.instance.currentUser.email).set({
-            'Type':'Patient',
-            'Name': FirebaseAuth.instance.currentUser.displayName,
-            'Email':FirebaseAuth.instance.currentUser.email,
-            'Photo': FirebaseAuth.instance.currentUser.photoURL
-          }).then((value) async{
+    setState(() {
+      btnWgt = Center(
+        child: CircularProgressIndicator(
+          backgroundColor: Colors.white,
+        ),
+      );
+    });
+    try {
+      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication googleAuth =
+      await googleUser.authentication;
+      final GoogleAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await FirebaseAuth.instance
+          .signInWithCredential(credential)
+          .then((value) async {
+        await FirebaseFirestore.instance
+            .collection('User')
+            .doc(FirebaseAuth.instance.currentUser.email)
+            .get()
+            .then((DocumentSnapshot documentSnapshot) async {
+          if (documentSnapshot.exists){
             userData = await FirebaseFirestore.instance
                 .collection('User')
                 .doc(FirebaseAuth.instance.currentUser.email)
                 .get();
             Get.offAll(() => Home());
-          });
+          } else {
+            await FirebaseFirestore.instance
+                .collection('User')
+                .doc(FirebaseAuth.instance.currentUser.email).set({
+              'Type':'Patient',
+              'Name': FirebaseAuth.instance.currentUser.displayName,
+              'Email':FirebaseAuth.instance.currentUser.email,
+              'Photo': FirebaseAuth.instance.currentUser.photoURL
+            }).then((value) async{
+              userData = await FirebaseFirestore.instance
+                  .collection('User')
+                  .doc(FirebaseAuth.instance.currentUser.email)
+                  .get();
+              Get.offAll(() => Home());
+            });
 
-        }
+          }
+        });
+      }).onError((error, stackTrace){
+        setState(() {
+          btnWgt = Text(
+            'SignIn',
+            style: TextStyle(
+                fontSize: 24
+            ),
+          );
+        });
+        Get.snackbar('SignIn Failed', error.toString());
       });
-    }).onError((error, stackTrace){
-      Get.snackbar('SignIn Failed', error.toString());
-    });
+    } catch (e) {
+      setState(() {
+        btnWgt = Text(
+          'SignIn',
+          style: TextStyle(
+              fontSize: 24
+          ),
+        );
+      });
+      Get.snackbar(
+          'SignIn Failed',
+          'Something went wrong. please try again',
+        colorText: Colors.white,
+        backgroundColor: Colors.blue.shade900,
+        margin: const EdgeInsets.all(16)
+      );
+    }
+
   }
+
+  Widget btnWgt = Text(
+    'SignIn',
+    style: TextStyle(
+        fontSize: 24
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -97,12 +138,8 @@ class _SingleSignInState extends State<SingleSignIn> {
                   onPressed: () {
                     signInWithGoogle();
                   },
-                  child: Text(
-                    'SignIn',
-                    style: TextStyle(
-                      fontSize: 24
-                    ),
-                  )),
+                  child: btnWgt
+              ),
             )
           ],
         ),
