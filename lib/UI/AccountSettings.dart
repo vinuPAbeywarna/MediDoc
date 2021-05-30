@@ -52,24 +52,6 @@ class _AccountSettingState extends State<AccountSetting> {
             fAuth.currentUser.email,
             style: TextStyle(fontSize: 21),
           ),
-          SizedBox(
-            height: 16,
-          ),
-          TextField(
-            decoration: InputDecoration(
-                labelText: 'Address', border: OutlineInputBorder()),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          TextField(
-            decoration: InputDecoration(
-                labelText: 'Phone', border: OutlineInputBorder()),
-          ),
-          SizedBox(
-            height: 16,
-          ),
-          ElevatedButton(onPressed: () {}, child: Text('Save'))
         ],
       ),
     );

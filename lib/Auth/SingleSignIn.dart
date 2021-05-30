@@ -52,10 +52,8 @@ class _SingleSignInState extends State<SingleSignIn> {
 
         }
       });
-
-
-
-
+    }).onError((error, stackTrace){
+      Get.snackbar('SignIn Failed', error.toString());
     });
   }
 
@@ -86,13 +84,26 @@ class _SingleSignInState extends State<SingleSignIn> {
                 color: Colors.black,
               ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  signInWithGoogle();
-                },
-                child: Text(
-                  'SignIn',
-                )),
+            SizedBox(height: 64),
+            Container(
+              width: Get.width/2,
+              height: 64,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8)
+                  )
+                ),
+                  onPressed: () {
+                    signInWithGoogle();
+                  },
+                  child: Text(
+                    'SignIn',
+                    style: TextStyle(
+                      fontSize: 24
+                    ),
+                  )),
+            )
           ],
         ),
       ),

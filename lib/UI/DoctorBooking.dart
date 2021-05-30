@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:medidoc/UI/Home.dart';
 
 class DoctorBooking extends StatefulWidget {
   final DocumentSnapshot doctor;
@@ -159,16 +160,24 @@ class _DoctorBookingState extends State<DoctorBooking> {
 
             Padding(
                 padding: EdgeInsets.all(16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+              child: Container(
+                width: Get.width,
+                height: 64,
+                child:
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)
+                        )
+                    ),
                     onPressed: (){
                       addAppointment();
                     },
-                    child: Text('Confirm Appointment'),
+                    child: Text('Confirm Appointment',style: TextStyle(
+                        fontSize: 24
+                    ),),
                   )
-                ],
+                ,
               ),
             )
 

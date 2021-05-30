@@ -1,19 +1,17 @@
-import 'package:medidoc/Auth/SingleSignIn.dart';
-import 'package:medidoc/Classes/CommonData.dart';
-
-
-import 'package:medidoc/UI/QR.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:medidoc/UI/MyAppointments.dart';
+import 'package:medidoc/Auth/SingleSignIn.dart';
+import 'package:medidoc/Classes/CommonData.dart';
+import 'package:medidoc/UI/AccountSettings.dart';
 import 'package:medidoc/UI/DoctorChanneling.dart';
 import 'package:medidoc/UI/MedicalRecodes.dart';
+import 'package:medidoc/UI/MyAppointments.dart';
 import 'package:medidoc/UI/Payments.dart';
+import 'package:medidoc/UI/QR.dart';
 import 'package:medidoc/UI/UserDetails.dart';
-import 'package:medidoc/UI/AccountSettings.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 
 class Home extends StatefulWidget {
@@ -28,6 +26,7 @@ class _HomeState extends State<Home> {
 
   int page = 1;
   PageController pageController = new PageController(initialPage: 1);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,12 +44,23 @@ class _HomeState extends State<Home> {
               pageController.jumpToPage(val);
             });
           },
-          items: [
-            BottomNavigationBarItem(
-                label: 'Profile', icon: Icon(Icons.supervised_user_circle)),
-            BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
-            BottomNavigationBarItem(label: 'QR', icon: Icon(Icons.qr_code))
-          ],
+          items: userData['Type'] == 'Nurse'
+              ? [
+                  BottomNavigationBarItem(
+                      label: 'Profile',
+                      icon: Icon(Icons.supervised_user_circle)),
+                  BottomNavigationBarItem(
+                      label: 'Home', icon: Icon(Icons.home)),
+                  BottomNavigationBarItem(
+                      label: 'QR', icon: Icon(Icons.qr_code))
+                ]
+              : [
+                  BottomNavigationBarItem(
+                      label: 'Profile',
+                      icon: Icon(Icons.supervised_user_circle)),
+                  BottomNavigationBarItem(
+                      label: 'Home', icon: Icon(Icons.home)),
+                ],
         ),
         drawer: Drawer(
           child: Column(
@@ -212,8 +222,8 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 Visibility(
-                  visible: userData['Type'] =='Nurse',
-                  child:ElevatedButton(
+                  visible: userData['Type'] == 'Nurse',
+                  child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.white,
                     ),
@@ -230,7 +240,7 @@ class _HomeState extends State<Home> {
                 )
               ],
             ),
-            QRScan()
+            Visibility(visible: userData['Type'] == 'Nurse', child: QRScan())
           ],
         ));
   }

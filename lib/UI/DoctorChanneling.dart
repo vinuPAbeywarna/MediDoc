@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:medidoc/UI/DoctorBooking.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,13 @@ class _DoctorChannelingState extends State<DoctorChanneling> {
       body: StreamBuilder(
           stream: fStore.collection('Doctors').get().asStream(),
           builder: (context, data) {
+
+            if(data.connectionState == ConnectionState.waiting){
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
             return ListView.builder(
                 itemCount: data.connectionState == ConnectionState.done
                     ? data.data.docs.length
@@ -35,7 +43,16 @@ class _DoctorChannelingState extends State<DoctorChanneling> {
                               doctor: data.data.docs[index],
                             ));
                       },
-                      leading: CircleAvatar(),
+                      leading: Container(
+                        child: ClipOval(
+                          child: CachedNetworkImage(
+                            fit: BoxFit.cover,
+                            imageUrl: 'https://i.pravatar.cc/64'+index.toString(),
+                          ),
+                        ),
+                        height: 64,
+                        width: 64,
+                      ),
                       title: Text(data.data.docs[index]['Name']),
                       subtitle: Text(data.data.docs[index]['Type'] +
                           ' | ' +
