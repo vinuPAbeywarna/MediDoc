@@ -131,11 +131,11 @@ class _HomeState extends State<Home> {
                     onTap: () {
                       Get.to(() => AccountSetting());
                     },
-                    title: Text('Account Settings'),
-                    leading: Icon(
-                      Icons.account_circle,
-                      color: Colors.blue.shade900,
-                    ),
+                    //title: Text('Account Settings'),
+                    //leading: Icon(
+                      //Icons.account_circle,
+                      //color: Colors.blue.shade900,
+                    //),
                   ),
                 ],
               ),

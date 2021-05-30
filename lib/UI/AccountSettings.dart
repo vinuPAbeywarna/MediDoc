@@ -14,7 +14,7 @@ class _AccountSettingState extends State<AccountSetting> {
     return Scaffold(
       backgroundColor: Colors.lightBlue.shade50,
       appBar: AppBar(
-        title: Text('Account settings'),
+        title: Text('Account details'),
         backgroundColor: Colors.blue.shade900,
       ),
       body: ListView(
